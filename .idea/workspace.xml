@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e67dd8ff-c43d-4fc7-8b4b-81cc2a92bd99" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/FrameMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/TestCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/general/CustomCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/general/CustomTabCompleter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/general/SkeletonCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/interface_context/ClickDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/interface_context/ContextDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dto/interface_context/TestContextDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/routing/PlayerDataManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/sql/PlayerDataManagerSQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/CustomFiles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/FileManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/PlayerDataManagerYML.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/TestInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/general/ClickableItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/general/Interface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/general/SkeletonInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/listeners/InventoryClickListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/listeners/InventoryCloseListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/listeners/PlayerJoinListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/shared/FileManagerMethods.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/shared/Finals.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/shared/SpigotMethods.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ZctCXwOxhqoitpIoLfmlbhyqav" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP OMEN/source/repos/PaperPluginFrame/src/main/java&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP OMEN\source\repos\PaperPluginFrame\src\main\java" />
+      <recent name="C:\Users\HP OMEN\source\repos\PaperPluginFrame\src\main\java\command" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="file_manager.yml" />
+      <recent name="interfaces.general" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e67dd8ff-c43d-4fc7-8b4b-81cc2a92bd99" name="Changes" comment="" />
+      <created>1702733068080</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702733068080</updated>
+    </task>
+    <servers />
+  </component>
+</project>

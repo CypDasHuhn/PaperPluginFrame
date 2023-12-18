@@ -1,0 +1,8 @@
+name: FramePlugin
+version: 1
+main: FrameMain
+api-version: '1.20'
+
+commands:
+  testtest:
+    description: lol
