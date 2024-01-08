@@ -1,10 +1,12 @@
 package interfaces;
 
+import dto.cache_object.TestCacheDTO;
 import dto.interface_context.ContextDTO;
 import dto.interface_context.TestContextDTO;
 import interfaces.general.ClickableItem;
 import interfaces.general.Interface;
 import interfaces.general.SkeletonInterface;
+import main.FrameMain;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -39,7 +41,11 @@ public class TestInterface extends SkeletonInterface {
                     (slot, currentContext) -> slot > 2 && slot < 7,
                     (slot, currentContext) -> {
                         TestContextDTO testContext = (TestContextDTO) currentContext;
-                        return SpigotMethods.createItem(testContext.material,"cool", false, null, null);
+
+                        TestCacheDTO testCacheDTO = (TestCacheDTO) FrameMain.cache.cache("testCache", () ->
+                                new TestCacheDTO(5, "cool"), 100);
+
+                        return SpigotMethods.createItem(testContext.material,testCacheDTO.lol, false, null, null);
                     },
                     (currentContext, clickDTO) -> {
                         TestContextDTO testContext = (TestContextDTO) currentContext;

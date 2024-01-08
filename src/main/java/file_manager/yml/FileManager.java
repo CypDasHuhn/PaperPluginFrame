@@ -99,10 +99,6 @@ public class FileManager {
         R apply(T t, U u, V v);
     }
     @FunctionalInterface
-    public interface QuatroFunction<T, U, V, S, R> {
-        R apply(T t, U u, V v, S s);
-    }
-    @FunctionalInterface
     public interface TriConsumer<T, U, V> {
         void accept(T t, U u, V v);
     }
