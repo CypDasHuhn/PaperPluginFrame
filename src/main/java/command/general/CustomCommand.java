@@ -20,11 +20,8 @@ public class CustomCommand implements CommandExecutor {
     // it parses the command of the linked Class with the needed attributes.
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        System.out.println(label);
-
         for (HashMap.Entry<String, String[]> entry : aliasesMap.entrySet()) {
             String commandLabel = entry.getKey();
-            System.out.println(commandLabel);
             String[] aliases = entry.getValue();
 
             if (label.equalsIgnoreCase(commandLabel) || Arrays.stream(aliases).anyMatch(label::equalsIgnoreCase)) {

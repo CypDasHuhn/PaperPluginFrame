@@ -5,37 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e67dd8ff-c43d-4fc7-8b4b-81cc2a92bd99" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/FrameMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/TestCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/general/CustomCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/general/CustomTabCompleter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/general/SkeletonCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/interface_context/ClickDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/interface_context/ContextDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dto/interface_context/TestContextDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/routing/PlayerDataManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/sql/PlayerDataManagerSQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/CustomFiles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/FileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/PlayerDataManagerYML.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/TestInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/general/ClickableItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/general/Interface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/general/SkeletonInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/listeners/InventoryClickListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/listeners/InventoryCloseListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/listeners/PlayerJoinListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/shared/FileManagerMethods.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/shared/Finals.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/shared/SpigotMethods.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/caching/Cache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FrameMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/FrameMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/TestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/TestCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/general/CustomCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/general/CustomCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/file_manager/yml/CustomFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/CustomFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/file_manager/yml/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file_manager/yml/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/shared/SpigotMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shared/SpigotMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

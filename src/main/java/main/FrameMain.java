@@ -1,3 +1,6 @@
+package main;
+
+import caching.Cache;
 import com.destroystokyo.paper.utils.PaperPluginLogger;
 import command.general.CustomCommand;
 import command.general.CustomTabCompleter;
@@ -12,16 +15,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 
 public class FrameMain extends JavaPlugin {
-    private static FrameMain plugin;
+    private FrameMain plugin;
     public static boolean usesSQL;
     public static final String pluginName = "FramePlugin";
-    private static final Listener[] LISTENERS = {new InventoryClickListener(), new InventoryCloseListener(), new PlayerJoinListener()};
+    private final Listener[] LISTENERS = {new InventoryClickListener(), new InventoryCloseListener(), new PlayerJoinListener()};
+    public static Cache<String, Object> cache = new Cache<>();
 
     public void onEnable(){
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
         }
-        plugin = this;
+        //plugin = this;
 
         for (String command : CustomCommand.aliasesMap.keySet()) {
             if (getCommand(command) == null) {
@@ -36,5 +40,13 @@ public class FrameMain extends JavaPlugin {
         for (Listener listener : LISTENERS) {
             pluginManager.registerEvents(listener, this);
         }
+    }
+
+    public void onDisable() {
+        if (cache != null) {
+            cache.shutdownScheduler();
+        }
+
+        // Any other cleanup code goes here
     }
 }
