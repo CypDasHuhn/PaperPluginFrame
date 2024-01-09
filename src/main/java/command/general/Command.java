@@ -3,41 +3,42 @@ package command.general;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Command implements CommandExecutor {
-    private List<Argument> arguments = new ArrayList<Argument>() {{
+    private final List<Argument> arguments = new ArrayList<>() {{
         add(new Argument(
-                (sender, args, label) -> label.equalsIgnoreCase("testCommand"),
-                (sender, args, label) -> true,
-                (sender, args, label) -> new ArrayList<>() {{
-                    add("cool");
-                    add("lol");
-                }},
+                (sender, args, value, index, values) -> value.equalsIgnoreCase("testCommand"),
+                (sender, args, value, index, values) -> true,
                 null,
-                (sender, args, label) -> System.out.println("Enter a following command!"),
                 null,
-                false,
-                new ArrayList<Argument>(){{
+                null,
+                (sender, args, value, index, values) -> value,
+                null,
+                new ArrayList<>(){{
                     add(new Argument(
-                            (sender, args, label) -> false,
-                            (sender, args, label) -> false,
-                            (sender, args, label) -> new ArrayList<String>(),
-                            (sender, args, label) -> System.out.println("Error, invalid!"),
+                            (sender, args, value, index, values) -> value.equalsIgnoreCase("-g"),
+                            (sender, args, value, index, values) -> new ArrayList<>() {{add("-g");}},
+                            (sender, args, value, index, values) -> value
+                    ));
+                    add(new Argument(
+                            (sender, args, value, index, values) -> value.equalsIgnoreCase("cool"),
                             null,
-                            (sender, args, label) -> System.out.println("Success!"),
-                            false,
+                            (sender, args, value, index, values) -> new ArrayList<>() {{add("cool");}},
+                            null,
+                            (sender, args, value, index, values) -> System.out.println("Write a version of cool"),
+                            (sender, args, value, index, values) -> value,
+                            (sender, args, values) -> System.out.println("Success!"),
                             null
                     ));
                     add(new Argument(
-                            (sender, args, label) -> false,
-                            (sender, args, label) -> false,
-                            (sender, args, label) -> new ArrayList<String>(),
-                            (sender, args, label) -> System.out.println("Error, invalid!"),
+                            (sender, args, value, index, values) -> value.equalsIgnoreCase("Coolsta!"),
                             null,
-                            (sender, args, label) -> System.out.println("Success!"),
-                            false,
+                            (sender, args, value, index, values) -> new ArrayList<>() {{add("cool");}},
+                            null,
+                            (sender, args, value, index, values) -> System.out.println("Write a version of cool"),
+                            (sender, args, value, index, values) -> value,
+                            (sender, args, values) -> System.out.println("Success!"),
                             null
                     ));
                 }}
@@ -45,16 +46,69 @@ public class Command implements CommandExecutor {
     }};
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        for (Argument argument : arguments) {
-            if (argument.isArgument.test(sender, args, label)) {
-                if (argument.isValid == null || argument.isValid.test(sender, args, label)) {
-                    // either invoke, or
+        List<String> list = new LinkedList<>(Arrays.asList(args));
+        list.add(0, label);
+        args = list.toArray(new String[list.size()]);
+
+        List<Argument> argumentsCopy = this.arguments;
+        String[] finalArgs = args;
+
+        HashMap<String, Object> values = new HashMap<>();
+        for (int i = 0; i < args.length; i++) {
+            final String arg = args[i];
+            final int finalI = i;
+
+            Optional<Argument> currentOptionalArgument = argumentsCopy.stream()
+                    .filter(obj -> obj.isArgument.test(sender, finalArgs, arg, finalI, values))
+                    .findFirst();
+
+            Argument firstArgument = argumentsCopy.stream()
+                    .filter(obj -> obj.errorMissing != null)
+                    .findFirst().get();
+
+            if (currentOptionalArgument.isPresent()) {
+                Argument currentArgument = currentOptionalArgument.get();
+
+                if (currentArgument.isValid == null || currentArgument.isValid.test(sender, finalArgs, arg, finalI, values)){
+                    values.put(currentArgument.key,currentArgument.argumentHandler.apply(sender, finalArgs, arg, finalI, values));
+                    if (i+1 == args.length) {
+                        if (currentArgument.invoke != null) {
+                            currentArgument.invoke.accept(sender, finalArgs, values);
+                        } else {
+                            List<Argument> inferiorArguments = currentArgument.followingArguments;
+                            Argument firstInferiorArgument = inferiorArguments.stream()
+                                    .filter(obj -> obj.errorMissing != null)
+                                    .findFirst().get();
+
+                            firstInferiorArgument.errorMissing.accept(sender, finalArgs, arg, i, values);
+                            return false;
+                        }
+                    } else {
+                        if (currentArgument.modifier) {
+                            argumentsCopy.remove(currentArgument);
+                        } else {
+                            List<Argument> inferiorArguments = currentArgument.followingArguments;
+                            Argument firstInferiorArgument = inferiorArguments.stream()
+                                    .filter(obj -> obj.errorMissing != null)
+                                    .findFirst().get();
+
+                            argumentsCopy.stream().filter((obj) -> obj.modifier).forEach((mObj) -> {
+                                if (!values.containsKey(mObj.key)) values.put(mObj.key, false);
+                            });
+
+                            argumentsCopy = firstInferiorArgument.followingArguments;
+                        }
+                    }
                 } else {
-                    argument.errorInvalid.accept(sender, args, label);
+                    currentArgument.errorInvalid.accept(sender, finalArgs, arg, finalI, values);
+                    return false;
                 }
-                break;
+            } else {
+                firstArgument.errorMissing.accept(sender, finalArgs, arg, i, values);
+                return false;
             }
         }
-        return false;
+
+        return true;
     }
 }

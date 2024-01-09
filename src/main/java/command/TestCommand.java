@@ -32,57 +32,56 @@ public class TestCommand extends SkeletonCommand {
         Bukkit.broadcastMessage("Value is "+value);
         */
 
-        Argument.TriConsumer<> cool = (sender1, args1, label1) -> {
-            CustomFiles[] customFiles = CustomFiles.getCustomFiles(1);
-            FileConfiguration fileConfiguration = customFiles[0].getFileConfiguration("data", "");
+        CustomFiles[] customFiles = CustomFiles.getCustomFiles(1);
+        FileConfiguration fileConfiguration = customFiles[0].getFileConfiguration("data", "");
 
-            Player player = (Player) sender;
-            List<ItemStack> items = Arrays.asList(player.getInventory().getContents());
+        Player player = (Player) sender;
+        List<ItemStack> items = Arrays.asList(player.getInventory().getContents());
 
-            Map<Integer, EntityType> eggEntities = new HashMap<>();
-            Map<Integer, String> eggMaterials = new HashMap<>();
-            FileManager.setList(fileConfiguration, "Items.Item", items,
-                    (list, value) -> {
-                        ItemStack item = (ItemStack) value;
-                        return item != null && item.getItemMeta() instanceof SpawnEggMeta;
-                    }, (list, value, index) -> {
-                        ItemStack item = (ItemStack) value;
-                        SpawnEggMeta itemMeta = (SpawnEggMeta) item.getItemMeta();
-                        EntityType entityType = itemMeta.getCustomSpawnedType();
-                        Material material = item.getType();
+        Map<Integer, EntityType> eggEntities = new HashMap<>();
+        Map<Integer, String> eggMaterials = new HashMap<>();
+        FileManager.setList(fileConfiguration, "Items.Item", items,
+                (list, value) -> {
+                    ItemStack item = (ItemStack) value;
+                    return item != null && item.getItemMeta() instanceof SpawnEggMeta;
+                }, (list, value, index) -> {
+                    ItemStack item = (ItemStack) value;
+                    SpawnEggMeta itemMeta = (SpawnEggMeta) item.getItemMeta();
+                    EntityType entityType = itemMeta.getCustomSpawnedType();
+                    Material material = item.getType();
 
-                        eggEntities.put(index, entityType);
-                        eggMaterials.put(index, material.toString());
+                    eggEntities.put(index, entityType);
+                    eggMaterials.put(index, material.toString());
 
-                        return list;
-                    }
-            );
-            FileManager.set(fileConfiguration, "Items.EntityType",eggEntities);
-            FileManager.set(fileConfiguration, "Items.EggMaterial",eggMaterials);
+                    return list;
+                }
+        );
+        FileManager.set(fileConfiguration, "Items.EntityType",eggEntities);
+        FileManager.set(fileConfiguration, "Items.EggMaterial",eggMaterials);
 
-            CustomFiles.saveArray(customFiles);
+        CustomFiles.saveArray(customFiles);
 
-            final Map<Integer, EntityType> eggEntitiesLoaded = (Map<Integer, EntityType>) FileManager.get(fileConfiguration, "Items.EntityType");
-            final Map<Integer, String> eggMaterialsLoaded = (Map<Integer, String>) FileManager.get(fileConfiguration, "Items.EggMaterial");
-            List<ItemStack> itemsLoaded = FileManager.getList(fileConfiguration, "Items.Item",
-                    (list, value) -> {
-                        ItemStack item = (ItemStack) value;
-                        return item != null &&  item.getItemMeta() instanceof SpawnEggMeta;
-                    }, (list, value, index) -> {
-                        ItemStack item = (ItemStack) value;
-                        SpawnEggMeta itemMeta = (SpawnEggMeta) item.getItemMeta();
+        final Map<Integer, EntityType> eggEntitiesLoaded = (Map<Integer, EntityType>) FileManager.get(fileConfiguration, "Items.EntityType");
+        final Map<Integer, String> eggMaterialsLoaded = (Map<Integer, String>) FileManager.get(fileConfiguration, "Items.EggMaterial");
+        List<ItemStack> itemsLoaded = FileManager.getList(fileConfiguration, "Items.Item",
+                (list, value) -> {
+                    ItemStack item = (ItemStack) value;
+                    return item != null &&  item.getItemMeta() instanceof SpawnEggMeta;
+                }, (list, value, index) -> {
+                    ItemStack item = (ItemStack) value;
+                    SpawnEggMeta itemMeta = (SpawnEggMeta) item.getItemMeta();
 
-                        itemMeta.setCustomSpawnedType(eggEntitiesLoaded.get(index));
-                        item.setItemMeta(itemMeta);
-                        item.setType(Material.valueOf(eggMaterialsLoaded.get(index)));
+                    itemMeta.setCustomSpawnedType(eggEntitiesLoaded.get(index));
+                    item.setItemMeta(itemMeta);
+                    item.setType(Material.valueOf(eggMaterialsLoaded.get(index)));
 
-                        return item;
-                    }
-            );
+                    return item;
+                }
+        );
 
-            ItemStack[] itemArray = itemsLoaded.toArray(new ItemStack[0]);
-            player.getInventory().setContents(itemArray);
-        };
+        ItemStack[] itemArray = itemsLoaded.toArray(new ItemStack[0]);
+        player.getInventory().setContents(itemArray);
+
     }
 
     @Override
