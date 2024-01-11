@@ -2,6 +2,8 @@ package main;
 
 import caching.Cache;
 import com.destroystokyo.paper.utils.PaperPluginLogger;
+import command.general.Command;
+import command.general.Completer;
 import command.general.CustomCommand;
 import command.general.CustomTabCompleter;
 import listeners.InventoryClickListener;
@@ -35,6 +37,9 @@ public class FrameMain extends JavaPlugin {
             getCommand(command).setExecutor(new CustomCommand());
             getCommand(command).setTabCompleter(new CustomTabCompleter());
         }
+
+        getCommand("testCommand").setExecutor(new Command());
+        getCommand("testCommand").setTabCompleter(new Completer());
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         for (Listener listener : LISTENERS) {

@@ -1,12 +1,14 @@
 package command.general;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class Command implements CommandExecutor {
-    private final List<Argument> arguments = new ArrayList<>() {{
+    public static final List<Argument> arguments = new ArrayList<>() {{
         add(new Argument(
                 (sender, args, value, index, values) -> value.equalsIgnoreCase("testCommand"),
                 (sender, args, value, index, values) -> true,
@@ -15,11 +17,13 @@ public class Command implements CommandExecutor {
                 null,
                 (sender, args, value, index, values) -> value,
                 null,
+                "label",
                 new ArrayList<>(){{
                     add(new Argument(
                             (sender, args, value, index, values) -> value.equalsIgnoreCase("-g"),
                             (sender, args, value, index, values) -> new ArrayList<>() {{add("-g");}},
-                            (sender, args, value, index, values) -> value
+                            (sender, args, value, index, values) -> value,
+                            "global"
                     ));
                     add(new Argument(
                             (sender, args, value, index, values) -> value.equalsIgnoreCase("cool"),
@@ -28,7 +32,12 @@ public class Command implements CommandExecutor {
                             null,
                             (sender, args, value, index, values) -> System.out.println("Write a version of cool"),
                             (sender, args, value, index, values) -> value,
-                            (sender, args, values) -> System.out.println("Success!"),
+                            (sender, args, values) -> {
+                                boolean global = (boolean) values.get("global");
+                                if (global) System.out.println("Success! (1)");
+                                System.out.println("Success! (1)");
+                            },
+                            "cool",
                             null
                     ));
                     add(new Argument(
@@ -38,7 +47,12 @@ public class Command implements CommandExecutor {
                             null,
                             (sender, args, value, index, values) -> System.out.println("Write a version of cool"),
                             (sender, args, value, index, values) -> value,
-                            (sender, args, values) -> System.out.println("Success!"),
+                            (sender, args, values) -> {
+                                boolean global = (boolean) values.get("global");
+                                if (global) System.out.println("Success! (2)");
+                                System.out.println("Success! (2)");
+                            },
+                            "coolsta",
                             null
                     ));
                 }}
@@ -48,10 +62,10 @@ public class Command implements CommandExecutor {
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
         List<String> list = new LinkedList<>(Arrays.asList(args));
         list.add(0, label);
-        args = list.toArray(new String[list.size()]);
+        final String[] finalArgs = list.toArray(new String[list.size()]);
 
-        List<Argument> argumentsCopy = this.arguments;
-        String[] finalArgs = args;
+        Bukkit.broadcastMessage(arguments.get(0).followingArguments.size()+"");
+        List<Argument> argumentsCopy = arguments;
 
         HashMap<String, Object> values = new HashMap<>();
         for (int i = 0; i < args.length; i++) {
@@ -61,10 +75,6 @@ public class Command implements CommandExecutor {
             Optional<Argument> currentOptionalArgument = argumentsCopy.stream()
                     .filter(obj -> obj.isArgument.test(sender, finalArgs, arg, finalI, values))
                     .findFirst();
-
-            Argument firstArgument = argumentsCopy.stream()
-                    .filter(obj -> obj.errorMissing != null)
-                    .findFirst().get();
 
             if (currentOptionalArgument.isPresent()) {
                 Argument currentArgument = currentOptionalArgument.get();
@@ -97,6 +107,7 @@ public class Command implements CommandExecutor {
                             });
 
                             argumentsCopy = firstInferiorArgument.followingArguments;
+                            Bukkit.broadcastMessage("guck mal!");
                         }
                     }
                 } else {
@@ -104,7 +115,13 @@ public class Command implements CommandExecutor {
                     return false;
                 }
             } else {
-                firstArgument.errorMissing.accept(sender, finalArgs, arg, i, values);
+                Optional<Argument> firstArgument = argumentsCopy.stream()
+                        .filter(obj -> obj.errorMissing != null)
+                        .findFirst();
+
+                if (firstArgument.isPresent()) {
+                    firstArgument.get().errorMissing.accept(sender, finalArgs, arg, i, values);
+                }
                 return false;
             }
         }

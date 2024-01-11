@@ -24,7 +24,7 @@ public class Argument {
                     PentaConsumer<CommandSender, String[], String, Integer, HashMap<String, Object>> errorMissing,
                     PentaFunction<CommandSender, String[], String, Integer, HashMap<String, Object>, Object> argumentHandler,
                     TriConsumer<CommandSender, String[], HashMap<String, Object>> invoke,
-                    List<Argument> followingArguments) {
+                    String key, List<Argument> followingArguments) {
         this.isArgument = isArgument;
         this.isValid = isValid;
         this.tabCompletions = tabCompletions;
@@ -33,16 +33,18 @@ public class Argument {
         this.argumentHandler = argumentHandler;
         this.invoke = invoke;
         this.followingArguments = followingArguments;
+        this.key = key;
 
         this.modifier = false;
     }
 
     public Argument(PentaPredicate<CommandSender, String[], String, Integer, HashMap<String, Object>> isArgument,
                     PentaFunction<CommandSender, String[], String, Integer, HashMap<String, Object>, List<String>> tabCompletions,
-                    PentaFunction<CommandSender, String[], String, Integer, HashMap<String, Object>, Object> argumentHandler) {
+                    PentaFunction<CommandSender, String[], String, Integer, HashMap<String, Object>, Object> argumentHandler, String key) {
         this.isArgument = isArgument;
         this.tabCompletions = tabCompletions;
         this.argumentHandler = argumentHandler;
+        this.key = key;
 
         this.modifier = true;
     }
