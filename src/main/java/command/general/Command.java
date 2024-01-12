@@ -30,12 +30,12 @@ public class Command implements CommandExecutor {
                             null,
                             (sender, args, value, index, values) -> new ArrayList<>() {{add("cool");}},
                             null,
-                            (sender, args, value, index, values) -> System.out.println("Write a version of cool"),
+                            (sender, args, value, index, values) -> Bukkit.broadcastMessage("where cool ?"),
                             (sender, args, value, index, values) -> value,
                             (sender, args, values) -> {
                                 boolean global = (boolean) values.get("global");
-                                if (global) System.out.println("Success! (1)");
-                                System.out.println("Success! (1)");
+                                if (global) Bukkit.broadcastMessage("Global!");
+                                if (global) Bukkit.broadcastMessage("Succes! (1)");
                             },
                             "cool",
                             null
@@ -45,12 +45,12 @@ public class Command implements CommandExecutor {
                             null,
                             (sender, args, value, index, values) -> new ArrayList<>() {{add("cool");}},
                             null,
-                            (sender, args, value, index, values) -> System.out.println("Write a version of cool"),
+                            null,
                             (sender, args, value, index, values) -> value,
                             (sender, args, values) -> {
                                 boolean global = (boolean) values.get("global");
-                                if (global) System.out.println("Success! (2)");
-                                System.out.println("Success! (2)");
+                                if (global) Bukkit.broadcastMessage("Global!");
+                                if (global) Bukkit.broadcastMessage("Succes! (2)");
                             },
                             "coolsta",
                             null
@@ -64,12 +64,11 @@ public class Command implements CommandExecutor {
         list.add(0, label);
         final String[] finalArgs = list.toArray(new String[list.size()]);
 
-        Bukkit.broadcastMessage(arguments.get(0).followingArguments.size()+"");
         List<Argument> argumentsCopy = arguments;
 
         HashMap<String, Object> values = new HashMap<>();
-        for (int i = 0; i < args.length; i++) {
-            final String arg = args[i];
+        for (int i = 0; i < finalArgs.length; i++) {
+            final String arg = finalArgs[i];
             final int finalI = i;
 
             Optional<Argument> currentOptionalArgument = argumentsCopy.stream()
@@ -81,7 +80,11 @@ public class Command implements CommandExecutor {
 
                 if (currentArgument.isValid == null || currentArgument.isValid.test(sender, finalArgs, arg, finalI, values)){
                     values.put(currentArgument.key,currentArgument.argumentHandler.apply(sender, finalArgs, arg, finalI, values));
-                    if (i+1 == args.length) {
+                    argumentsCopy.stream().filter((a) -> a.modifier).forEach((ma) -> {
+                        if (!values.containsKey(ma.key)) values.put(ma.key, false);
+                    });
+
+                    if (i+1 == finalArgs.length) {
                         if (currentArgument.invoke != null) {
                             currentArgument.invoke.accept(sender, finalArgs, values);
                         } else {
@@ -97,17 +100,7 @@ public class Command implements CommandExecutor {
                         if (currentArgument.modifier) {
                             argumentsCopy.remove(currentArgument);
                         } else {
-                            List<Argument> inferiorArguments = currentArgument.followingArguments;
-                            Argument firstInferiorArgument = inferiorArguments.stream()
-                                    .filter(obj -> obj.errorMissing != null)
-                                    .findFirst().get();
-
-                            argumentsCopy.stream().filter((obj) -> obj.modifier).forEach((mObj) -> {
-                                if (!values.containsKey(mObj.key)) values.put(mObj.key, false);
-                            });
-
-                            argumentsCopy = firstInferiorArgument.followingArguments;
-                            Bukkit.broadcastMessage("guck mal!");
+                            argumentsCopy = currentArgument.followingArguments;
                         }
                     }
                 } else {
